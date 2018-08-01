@@ -1,7 +1,7 @@
-/snmp_exporter/generator/mibs/
-!/snmp_exporter/generator/mibs/IF-MIB.my
-!/snmp_exporter/generator/mibs/SNMPv2-SMI.my
-!/snmp_exporter/generator/mibs/SNMPv2-TC.my
-!/snmp_exporter/generator/mibs/SNMPv2-CONF.my
-!/snmp_exporter/generator/mibs/SNMPv2-MIB.my
-!/snmp_exporter/generator/mibs/IANAifType-MIB.my
+snmp_exporter/generator/mibs/*
+!snmp_exporter/generator/mibs/IF-MIB.my
+!snmp_exporter/generator/mibs/SNMPv2-SMI.my
+!snmp_exporter/generator/mibs/SNMPv2-TC.my
+!snmp_exporter/generator/mibs/SNMPv2-CONF.my
+!snmp_exporter/generator/mibs/SNMPv2-MIB.my
+!snmp_exporter/generator/mibs/IANAifType-MIB.my

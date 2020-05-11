@@ -30,15 +30,15 @@ scrape_configs:
     metrics_path: /metrics
     static_configs:
       - targets:
-          - 10.25.100.79:9182
-          - 10.25.103.53:9100
-          - 10.25.103.7:9100
+#           - 10.25.100.79:9182
+          - 10.25.103.52:9100
+#           - 10.25.103.7:9100
 
   - job_name: cadvisor
     scrape_interval: 5s
     static_configs:
       - targets:
-          - 10.25.103.53:8080
+          - 10.25.103.52:8080
 
   - job_name: 'snmp'
     scrape_interval: 30s
@@ -60,3 +60,39 @@ scrape_configs:
           - 192.168.130.22
           - 192.168.130.23
           - 192.168.130.25
+
+#  - job_name: 'checkpoint'
+#    scrape_interval: 60s
+#    metrics_path: '/index.txt'
+#    static_configs:
+#      - targets:
+#          - 10.25.103.52:8008
+
+  - job_name: 'pushgateway'
+    scrape_interval: 60s
+    metrics_path: '/metrics'
+    honor_labels: true
+    static_configs:
+      - targets:
+          - 10.25.103.52:9091
+
+  - job_name: 'vmware'
+    scrape_interval: 60s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets:
+          - 10.25.103.52:9512
+
+  - job_name: 'telegraf'
+    scrape_interval: 60s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets:
+          - 10.25.103.52:9273
+
+  - job_name: 'influxdb'
+    scrape_interval: 60s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets:
+          - 10.25.103.52:8086

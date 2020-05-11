@@ -7,6 +7,7 @@ networks:
 volumes:
     prometheus_data: {}
     grafana_data: {}
+    influxdb_data: {}
 
 services:
   prometheus:
@@ -54,6 +55,7 @@ services:
   snmp-exporter:
     image: prom/snmp-exporter
     container_name: snmpexporter
+    restart: unless-stopped
     volumes:
       - ./snmp_exporter/:/etc/snmp_exporter/
     expose:
@@ -114,3 +116,55 @@ services:
      - 3000:3000
    networks:
      - monitor-net
+
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: pushgateway
+    restart: unless-stopped
+    expose:
+      - 9091
+    ports:
+      - 9091:9091
+    networks:
+      - monitor-net
+
+  vmware-exporter:
+    image: devinotelecom/prometheus-vmware-exporter:latest
+    container_name: vmware-exporter
+    restart: unless-stopped
+    environment:
+      - 'ESX_HOST=192.168.130.51'
+      - 'ESX_USERNAME=root'
+      - 'ESX_PASSWORD=P@ssw0rd'
+    expose:
+      - 9512
+    ports:
+      - 9512:9512
+    networks:
+      - monitor-net
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    restart: unless-stopped
+    volumes:
+      - ./telegraf/:/etc/telegraf/:ro
+    expose:
+      - 9273
+    ports:
+      - 9273:9273
+    networks:
+      - monitor-net
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: unless-stopped
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+    expose:
+      - 8086
+    ports:
+      - 8086:8086
+    networks:
+      - monitor-net

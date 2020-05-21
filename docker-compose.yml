@@ -149,6 +149,19 @@ services:
     restart: unless-stopped
     volumes:
       - ./telegraf/:/etc/telegraf/:ro
+    extra_hosts:
+      - "vault.esma.europa.eu:51.105.229.179"
+      - "trace.esma.europa.eu:51.105.229.179"
+      - "cerep.esma.europa.eu:51.105.229.179"
+      - "difea.esma.europa.eu:51.105.229.179"
+      - "registers.esma.europa.eu:51.105.229.179"
+      - "risks.esma.europa.eu:51.105.229.179"
+      - "saris.esma.europa.eu:51.105.229.179"
+      - "hubde.esma.europa.eu:51.105.229.179"
+      - "hub.esma.europa.eu:51.105.229.180"
+      - "hubex.esma.europa.eu:51.105.229.180"
+      - "aaasfa.esma.europa.e:51.105.229.181"
+      - "aaa.esma.europa.eu:51.105.229.181"
     expose:
       - 9273
     ports:

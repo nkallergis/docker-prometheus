@@ -2815,28 +2815,64 @@
 #   # data_format = "influx"
 
 
-# # HTTP/HTTPS request given an address a method and a timeout
-# [[inputs.http_response]]
-#   ## Deprecated in 1.12, use 'urls'
-#   ## Server address (default http://localhost)
-#   # address = "http://localhost"
+# HTTP/HTTPS request given an address a method and a timeout
+[[inputs.http_response]]
+  ## Deprecated in 1.12, use 'urls'
+  ## Server address (default http://localhost)
+  # address = "http://localhost"
 
-#   interval = "120s"
+  interval = "120s"
 
-#   ## List of urls to query.
-#   urls = []
+  ## List of urls to query.
+  urls = [
+    "https://aaa.esma.europa.eu",
+    "https://aaasfa.esma.europa.eu",
+    "https://cerep.esma.europa.eu",
+    "https://difea.esma.europa.eu",
+    "https://hub.esma.europa.eu",
+    "https://hubde.esma.europa.eu",
+    "https://hubex.esma.europa.eu",
+    "https://registers.esma.europa.eu",
+    "https://risks.esma.europa.eu",
+    "https://saris.esma.europa.eu",
+    "https://trace.esma.europa.eu",
+    "https://vault.esma.europa.eu",
+    "https://registers.esma.europa.eu/aifmd-extranet",
+    "https://registers.esma.europa.eu/bench-extranet",
+    "https://registers.esma.europa.eu/cod58-extranet",
+    "https://registers.esma.europa.eu/csdr9-extranet",
+    "https://registers.esma.europa.eu/dvcap-extranet",
+    "https://registers.esma.europa.eu/emirc-extranet",
+    "https://registers.esma.europa.eu/emire-extranet",
+    "https://registers.esma.europa.eu/entre-extranet",
+    "https://registers.esma.europa.eu/firds-extranet",
+    "https://registers.esma.europa.eu/fitrs-extranet",
+    "https://registers.esma.europa.eu/fterm-extranet",
+    "https://registers.esma.europa.eu/home-extranet",
+    "https://registers.esma.europa.eu/home-extranet/contactPage",
+    "https://registers.esma.europa.eu/home-extranet/helpPage",
+    "https://registers.esma.europa.eu/home-extranet/legalNoticePage",
+    "https://registers.esma.europa.eu/extranet",
+    "https://registers.esma.europa.eu/mmf04-extranet",
+    "https://registers.esma.europa.eu/prosp-extranet",
+    "https://registers.esma.europa.eu/radar-extranet",
+    "https://registers.esma.europa.eu/sanct-extranet",
+    "https://registers.esma.europa.eu/saris-extranet",
+    "https://registers.esma.europa.eu/shsex-extranet",
+    "https://registers.esma.europa.eu/publication"
+  ]
 
-#   ## Set http_proxy (telegraf uses the system wide proxy settings if it's is not set)
-#   # http_proxy = "http://localhost:8888"
+  ## Set http_proxy (telegraf uses the system wide proxy settings if it's is not set)
+  # http_proxy = "http://localhost:8888"
 
-#   ## Set response_timeout (default 5 seconds)
-#   response_timeout = "5s"
+  ## Set response_timeout (default 5 seconds)
+  response_timeout = "5s"
 
-#   ## HTTP Request Method
-#   method = "GET"
+  ## HTTP Request Method
+  method = "GET"
 
-#   ## Whether to follow redirects from the server (defaults to false)
-#   follow_redirects = true
+  ## Whether to follow redirects from the server (defaults to false)
+  follow_redirects = true
 #
 #   ## Optional HTTP Request Body
 #   # body = '''

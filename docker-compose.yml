@@ -189,7 +189,7 @@ services:
   #   # restart: unless-stopped
   #   volumes:
   #     - loki_data:/loki
-  #     - ./loki/config-loki.yml:/etc/loki/local-config.yml
+  #     # - ./loki/config-loki.yml:/etc/loki/local-config.yml
   #   expose:
   #     - 3100
   #   ports:
@@ -199,13 +199,15 @@ services:
 
   # promtail:
   #   image: grafana/promtail:latest
-  #   container_name: promtail
-  #   # restart: unless-stopped
+  #   container_name: promtaile
   #   volumes:
-  #     - ./promtail/config-promtail.yml:/etc/promtail/local-config.yml
+  #     - ./promtail/config-promtail.yml:/etc/promtail/local-config.yaml
+  #   entrypoint: /usr/bin/promtail -config.file=/etc/promtail/local-config.yaml
   #   expose:
   #     - 9080
+  #     - 1514
   #   ports:
   #     - 9080:9080
+  #     - 1514:1514
   #   networks:
   #     - monitor-net

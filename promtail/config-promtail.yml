@@ -9,12 +9,19 @@ clients:
   - url: http://10.25.103.52:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: journal
-    journal:
-      max_age: 12h
-      path: /var/log/journal
+  - job_name: syslog
+    syslog:
+      listen_address: localhost:1514
       labels:
-        job: systemd-journal
+        job: "syslog"
     relabel_configs:
-      - source_labels: ['__journal__systemd_unit']
-        target_label: 'unit'
+    - source_labels: ['__syslog_message_hostname']
+      target_label: 'hostname'
+      
+  - job_name: system
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: varlogs
+        __path__: /var/log/*log

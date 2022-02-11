@@ -11,16 +11,21 @@ volumes:
     influxdb_data: {}
 
 services:
-  suzieq:
-    image: netenglabs/suzieq-demo:latest
-    container_name: suzieq
+  processexporter:
+    image: ncabatoff/process-exporter
+    container_name: processexporter
+    privileged: true
     restart: unless-stopped
+    volumes:
+      - /proc:/host/proc
+      - ./process_exporter/:/config/
+    command:
+      - '--procfs=/host/proc'
+      - '-config.path=/config/process-exporter.yml'
     expose:
-      - 8501
-      - 8001
+      - 9256
     ports:
-      - "8501:8501"
-      - "8001:8000"
+      - "9256:9256"
     networks:
       - monitor-net
 
@@ -133,7 +138,7 @@ services:
     expose:
       - 8080
     ports:
-      - 8088:8080
+      - 8080:8080
     networks:
       - monitor-net
 
@@ -167,6 +172,21 @@ services:
       - 9091
     ports:
       - 9091:9091
+    networks:
+      - monitor-net
+
+  vmware-exporter:
+    image: devinotelecom/prometheus-vmware-exporter:latest
+    container_name: vmware-exporter
+    restart: unless-stopped
+    environment:
+      - 'ESX_HOST=192.168.130.51'
+      - 'ESX_USERNAME=root'
+      - 'ESX_PASSWORD=P@ssw0rd'
+    expose:
+      - 9512
+    ports:
+      - 9512:9512
     networks:
       - monitor-net
 
@@ -211,10 +231,10 @@ services:
       - 8082
       - 8089
       # - 8083
-    # ports:
-      # - 8086:8086
-      # - 8082:8082
-      # - 8089:8089
+    ports:
+      - 8086:8086
+      - 8082:8082
+      - 8089:8089
       # - 8083:8083
     networks:
       - monitor-net
@@ -236,7 +256,6 @@ services:
   promtail:
     image: grafana/promtail:latest
     container_name: promtail
-    restart: unless-stopped
     volumes:
       - ./promtail/config-promtail.yml:/etc/promtail/local-config.yaml
     entrypoint: /usr/bin/promtail -config.file=/etc/promtail/local-config.yaml
